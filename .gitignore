@@ -1,0 +1,5 @@
+node_modules/
+# Runtime state (grants, credentials, audit log) and the user-provided MinGit.
+# Both must stay untracked: ST's plugin auto-update runs `git pull` here.
+server-plugin/state/
+server-plugin/mingit/

@@ -1,0 +1,10 @@
+{
+    "name": "taverngit-server",
+    "version": "0.1.0",
+    "versionCode": 1,
+    "description": "TavernGit server plugin: sandboxed git endpoints for SillyTavern.",
+    "private": true,
+    "type": "module",
+    "main": "index.mjs",
+    "license": "GPL-3.0"
+}

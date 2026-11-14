@@ -1,0 +1,13 @@
+{
+    "display_name": "TavernGit",
+    "loading_order": 5,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "BHLuotianyi",
+    "version": "0.1.0",
+    "versionCode": 1,
+    "homePage": "https://github.com/BHLuotianyi/TavernGit",
+    "minimum_client_version": "1.11.1"
+}

@@ -1,0 +1,20 @@
+{
+    "name": "taverngit",
+    "version": "0.1.0",
+    "versionCode": 1,
+    "description": "Sandboxed git for SillyTavern extensions: UI extension plus server plugin.",
+    "private": true,
+    "type": "module",
+    "main": "server-plugin/index.mjs",
+    "license": "GPL-3.0",
+    "author": "BHLuotianyi",
+    "homepage": "https://github.com/BHLuotianyi/TavernGit",
+    "engines": {
+        "node": ">=18"
+    },
+    "scripts": {
+        "test": "node --test tests/",
+        "version:set": "node tools/version.mjs set",
+        "version:check-tag": "node tools/version.mjs check-tag"
+    }
+}

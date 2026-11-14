@@ -1,0 +1,46 @@
+name: Release
+
+# Push a tag such as `v0.1.0`. The checks re-run, the tag is matched against
+# the version files, then a GitHub Release with a source archive is published.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Tests
+        run: npm test
+
+      - name: Verify the tag matches the version files
+        run: node tools/version.mjs check-tag "$GITHUB_REF_NAME"
+
+      - name: Package
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          git archive --format=zip --prefix=TavernGit/ -o "dist/TavernGit-$GITHUB_REF_NAME.zip" HEAD
+
+      - name: Publish the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/TavernGit-$GITHUB_REF_NAME.zip#TavernGit $GITHUB_REF_NAME (UI extension + server plugin)" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+            --verify-tag

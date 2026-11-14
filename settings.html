@@ -1,0 +1,121 @@
+<div id="taverngit-settings" class="taverngit-settings">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b data-i18n="settings.title">TavernGit</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content">
+            <div id="taverngit-admin-error" class="taverngit-warning-box taverngit-warning-red" hidden></div>
+
+            <section class="taverngit-section" id="taverngit-status-section">
+                <div class="taverngit-section-header">
+                    <h4 data-i18n="settings.statusHeading">Status</h4>
+                    <button type="button" id="taverngit-recheck-btn" class="menu_button taverngit-btn-sm" data-i18n="settings.recheck">Re-check</button>
+                </div>
+                <div id="taverngit-status-summary" class="taverngit-status-summary"></div>
+                <div id="taverngit-status-warnings" class="taverngit-status-warnings"></div>
+            </section>
+
+            <hr class="taverngit-divider">
+
+            <section class="taverngit-section" id="taverngit-identity-section">
+                <h4 data-i18n="settings.identityHeading">Commit Identity</h4>
+                <form id="taverngit-identity-form" class="taverngit-form">
+                    <div class="taverngit-form-grid">
+                        <label class="taverngit-field">
+                            <span data-i18n="settings.identityName">Name</span>
+                            <input type="text" id="taverngit-identity-name" class="text_pole" required>
+                        </label>
+                        <label class="taverngit-field">
+                            <span data-i18n="settings.identityEmail">Email</span>
+                            <input type="text" id="taverngit-identity-email" class="text_pole" required>
+                        </label>
+                    </div>
+                    <div class="taverngit-form-actions">
+                        <button type="submit" id="taverngit-identity-save" class="menu_button" data-i18n="settings.save">Save</button>
+                    </div>
+                </form>
+            </section>
+
+            <hr class="taverngit-divider">
+
+            <section class="taverngit-section" id="taverngit-credentials-section">
+                <h4 data-i18n="settings.credentialsHeading">Credentials</h4>
+                <p class="taverngit-note" data-i18n="settings.credentialsNote">Tokens are stored on the server in the TavernGit state folder and are never shown again.</p>
+                <table id="taverngit-credentials-table" class="taverngit-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="settings.colHost">Host</th>
+                            <th data-i18n="settings.colUsername">Username</th>
+                            <th data-i18n="settings.colCreated">Created</th>
+                            <th data-i18n="settings.colActions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taverngit-credentials-body"></tbody>
+                </table>
+                <form id="taverngit-credential-form" class="taverngit-form">
+                    <div class="taverngit-form-grid taverngit-form-grid-3">
+                        <label class="taverngit-field">
+                            <span data-i18n="settings.credHost">Host</span>
+                            <input type="text" id="taverngit-cred-host" class="text_pole" placeholder="github.com" autocomplete="off" required>
+                        </label>
+                        <label class="taverngit-field">
+                            <span data-i18n="settings.credUsername">Username</span>
+                            <input type="text" id="taverngit-cred-username" class="text_pole" autocomplete="off" required>
+                        </label>
+                        <label class="taverngit-field">
+                            <span data-i18n="settings.credToken">Token</span>
+                            <input type="password" id="taverngit-cred-token" class="text_pole" autocomplete="off" required>
+                        </label>
+                    </div>
+                    <div class="taverngit-form-actions">
+                        <button type="submit" id="taverngit-cred-add" class="menu_button" data-i18n="settings.addCredential">Add Credential</button>
+                    </div>
+                </form>
+            </section>
+
+            <hr class="taverngit-divider">
+
+            <section class="taverngit-section" id="taverngit-grants-section">
+                <div class="taverngit-section-header">
+                    <h4 data-i18n="settings.grantsHeading">Saved Grants</h4>
+                    <button type="button" id="taverngit-revoke-all-btn" class="menu_button taverngit-btn-sm" data-i18n="settings.revokeAll">Revoke all</button>
+                </div>
+                <table id="taverngit-grants-table" class="taverngit-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="settings.colCaller">Caller</th>
+                            <th data-i18n="settings.colClass">Class</th>
+                            <th data-i18n="settings.colScope">Zone / Host</th>
+                            <th data-i18n="settings.colActions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taverngit-grants-body"></tbody>
+                </table>
+            </section>
+
+            <hr class="taverngit-divider">
+
+            <section class="taverngit-section" id="taverngit-audit-section">
+                <div class="taverngit-section-header">
+                    <h4 data-i18n="settings.auditHeading">Audit Log</h4>
+                    <button type="button" id="taverngit-audit-refresh-btn" class="menu_button taverngit-btn-sm" data-i18n="settings.refresh">Refresh</button>
+                </div>
+                <table id="taverngit-audit-table" class="taverngit-table taverngit-audit-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="settings.colTime">Time</th>
+                            <th data-i18n="settings.colCaller">Caller</th>
+                            <th data-i18n="settings.colRepo">Repository</th>
+                            <th data-i18n="settings.colCommand">Command</th>
+                            <th data-i18n="settings.colTier">Tier / Classes</th>
+                            <th data-i18n="settings.colDecision">Decision</th>
+                            <th data-i18n="settings.colResult">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taverngit-audit-body"></tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
