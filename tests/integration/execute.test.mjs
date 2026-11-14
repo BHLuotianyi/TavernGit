@@ -558,6 +558,13 @@ describe('HTTP router integration', { skip: skipReason }, () => {
             recursive: true,
             filter: (src) => !src.includes(`${path.sep}state`) && !src.includes(`${path.sep}mingit`),
         });
+        // On Windows the plugin only runs `<plugin>/mingit/cmd/git.exe`; link
+        // the MinGit root that TAVERNGIT_TEST_GIT lives in.
+        if (process.platform === 'win32') {
+            const mingitLink = path.join(fake.serverPluginDir, 'mingit');
+            fs.symlinkSync(path.dirname(path.dirname(process.env.TAVERNGIT_TEST_GIT)), mingitLink, 'junction');
+            cleanups.push(() => fs.unlinkSync(mingitLink));
+        }
 
         const pluginUrl = `${pathToFileURL(path.join(fake.serverPluginDir, 'index.mjs')).href}?t=${Date.now()}`;
         const plugin = await import(pluginUrl);

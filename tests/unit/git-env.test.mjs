@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { describe, it } from 'node:test';
 import { buildGitEnv } from '../../server-plugin/lib/git-env.mjs';
 import { compareVersions, parseGitVersion } from '../../server-plugin/lib/git-binary.mjs';
@@ -20,7 +21,7 @@ describe('buildGitEnv', () => {
     const env = buildGitEnv({ stateDir: '/st/plugins/taverngit/state', stRoot: '/st', platform: 'linux', processEnv, extraConfig });
 
     it('drops inherited HOME and GIT_* except the passthrough list', () => {
-        assert.equal(env.HOME, '/st/plugins/taverngit/state/home');
+        assert.equal(env.HOME, path.join('/st/plugins/taverngit/state', 'home'));
         assert.equal(env.GIT_DIR, undefined);
         assert.equal(env.GIT_CONFIG_PARAMETERS, undefined);
         assert.equal(env.GIT_SSH_COMMAND, undefined);
