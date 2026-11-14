@@ -59,4 +59,7 @@ jobs:
         shell: bash
         env:
           TAVERNGIT_TEST_GIT: ${{ runner.os == 'Windows' && 'C:\Program Files\Git\cmd\git.exe' || '' }}
-        run: npm test
+        run: >-
+          npm test --
+          --test-reporter=spec --test-reporter-destination=stdout
+          --test-reporter=./tools/gha-reporter.mjs --test-reporter-destination=stdout
