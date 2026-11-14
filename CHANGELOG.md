@@ -22,6 +22,10 @@ All notable changes to TavernGit are documented in this file.
 - `client.commit()` passes the message as `--message=<message>`, so messages starting with `-` work.
 - `DELETE /grants` is documented as returning a count; unused `settings.zoneOk` translation removed.
 
+### Changed
+- **CI:** tests run on Linux with Node 18, 20, 22, 24 and 26, and on macOS and Windows with Node 24; the Windows job now runs the git integration tests against the runner's Git for Windows. A separate job checks that every version file carries the same version. Actions are pinned to commit SHAs and kept current by Dependabot.
+- **Releases:** a `v*` tag must match the version files and have a `## [x.y.z]` section in this file; the full checks run before publishing, the release notes are that section, and tags with a pre-release suffix are published as pre-releases. New commands: `node tools/version.mjs check` and `notes <tag>`.
+
 ## [0.1.0] - 2026-11-13
 
 ### Added

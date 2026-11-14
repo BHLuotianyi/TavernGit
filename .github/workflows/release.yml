@@ -1,46 +1,72 @@
 name: Release
 
-# Push a tag such as `v0.1.0`. The checks re-run, the tag is matched against
-# the version files, then a GitHub Release with a source archive is published.
+# Push a tag such as `v0.1.0`. The tag is matched against the version files and
+# CHANGELOG.md, the full checks re-run, then a GitHub Release is published with
+# a source archive and that version's CHANGELOG section as its notes.
 on:
   push:
     tags:
       - 'v*'
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
+  verify:
+    name: Verify tag
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '22'
-
-      - name: Tests
-        run: npm test
-
-      - name: Verify the tag matches the version files
+          node-version: '24'
+      - name: Tag matches the version files and CHANGELOG.md
         run: node tools/version.mjs check-tag "$GITHUB_REF_NAME"
+
+  checks:
+    needs: verify
+    uses: ./.github/workflows/checks.yml
+
+  release:
+    name: Publish
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
 
       - name: Package
         run: |
           set -euo pipefail
           mkdir -p dist
           git archive --format=zip --prefix=TavernGit/ -o "dist/TavernGit-$GITHUB_REF_NAME.zip" HEAD
+          node tools/version.mjs notes "$GITHUB_REF_NAME" > dist/notes.md
 
       - name: Publish the GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          prerelease=()
+          case "$GITHUB_REF_NAME" in *-*) prerelease=(--prerelease) ;; esac
           gh release create "$GITHUB_REF_NAME" \
             "dist/TavernGit-$GITHUB_REF_NAME.zip#TavernGit $GITHUB_REF_NAME (UI extension + server plugin)" \
             --repo "$GITHUB_REPOSITORY" \
             --title "$GITHUB_REF_NAME" \
-            --generate-notes \
-            --verify-tag
+            --notes-file dist/notes.md \
+            --verify-tag \
+            "${prerelease[@]}"

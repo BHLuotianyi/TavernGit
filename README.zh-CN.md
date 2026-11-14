@@ -88,6 +88,11 @@ API 中的路径必须采用 `@<zone>/<path>` 格式。区域只用于定位目�
 - [更新日志](CHANGELOG.md)
 - [English README](README.md)
 
+## 开发与发布
+
+- `npm test` 运行全部测试（Node 内置测试运行器，无依赖）。git 集成测试需要 `PATH` 中有 git；Windows 上需将 `TAVERNGIT_TEST_GIT` 设为某个 `git.exe` 的路径。
+- 发布流程：执行 `npm run version:set -- 0.2.0`，把 `CHANGELOG.md` 中的 `## [Unreleased]` 标题改为 `## [0.2.0] - <日期>`，提交后推送标签 `v0.2.0`。发布工作流会核对标签与版本文件及更新日志，重新运行全部检查，然后发布 GitHub Release，说明取自更新日志中的对应章节。
+
 ## 许可证
 
 [GPL-3.0](LICENSE)

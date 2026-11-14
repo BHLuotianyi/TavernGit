@@ -88,6 +88,11 @@ Runtime state lives in `<serverPluginDir>/state/` (`plugins/taverngit/state/` fo
 - [Changelog](CHANGELOG.md) — release history.
 - [中文文档](README.zh-CN.md)
 
+## Development & Releases
+
+- `npm test` runs the whole suite (Node's built-in test runner, no dependencies). The git integration tests need git on `PATH`; on Windows set `TAVERNGIT_TEST_GIT` to a `git.exe`.
+- To release: run `npm run version:set -- 0.2.0`, rename the `## [Unreleased]` heading in `CHANGELOG.md` to `## [0.2.0] - <date>`, commit, then push the tag `v0.2.0`. The release workflow checks the tag against the version files and the changelog, re-runs the checks, and publishes the GitHub Release with that changelog section as its notes.
+
 ## License
 
 [GPL-3.0](LICENSE)
