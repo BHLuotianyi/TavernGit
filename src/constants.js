@@ -1,6 +1,6 @@
 /** Release identity; rewritten by `tools/version.mjs`. */
-export const EXTENSION_VERSION = '0.1.0';
-export const EXTENSION_VERSION_CODE = 1;
+export const EXTENSION_VERSION = '0.1.1';
+export const EXTENSION_VERSION_CODE = 2;
 
 /**
  * Wire protocol between this UI extension and the server plugin. Bumped only

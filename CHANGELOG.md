@@ -4,6 +4,8 @@ All notable changes to TavernGit are documented in this file.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-15
+
 ### Security
 - **Option values:** options whose value git treats as optional (`--pretty`/`--format` of `log`, `show`, `reflog`; `-U`/`--unified`; `--abbrev`; `gc --prune`) now take a value only in attached form, and any other option value passed as its own token must not start with `-`. Previously such a token was validated as a value while git parsed it as an option the allowlist never saw.
 - **Repository paths:** a `.git` directory, or any path inside a git directory, is refused as `repo` for every command (`TG_UNSAFE_REPO_LAYOUT`); a repository without a `.git` directory must set `core.bare = true`. `init` checks an existing `.git` entry before re-initializing.
